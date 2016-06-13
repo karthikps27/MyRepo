@@ -1,0 +1,1 @@
+create table tasklist(id serial, taskSummary varchar(256), taskPriority int2, taskCreation varchar(256),taskStatus int2);
