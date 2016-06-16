@@ -16,6 +16,7 @@ public class TaskMapper implements RowMapper<Tasks> {
 		task.setPriority(rs.getInt("taskPriority"));
 		task.setDateOfCreation(rs.getString("taskCreation"));
 		task.setTaskStatus(rs.getInt("taskStatus"));
+		task.setLogged(rs.getBoolean("logged"));
 		return task;
 	}
 

@@ -4,10 +4,17 @@ public class Tasks {
 
 	public Integer taskId;	
 	public String taskSummary;
-	public Integer priority;
+	private Integer priority;
 	public String dateOfCreation;
 	public Integer taskStatus;
+	public boolean logged;
 	
+	public boolean isLogged() {
+		return logged;
+	}
+	public void setLogged(boolean logged) {
+		this.logged = logged;
+	}
 	public Integer getTaskStatus() {
 		return taskStatus;
 	}

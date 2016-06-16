@@ -71,6 +71,31 @@ function completeTask() {
 	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/markAsComplete?id="+id, true);
 	  xhttpRequest.send();
 }
+
+function moveTaskToLog() {
+	var id=document.querySelector('input[name="radioButtonName"]:checked').value;
+	  var xhttpRequest = new XMLHttpRequest();
+	  
+	  xhttpRequest.onreadystatechange = function() {
+		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
+	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
+	    }  
+	  };	  
+	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/moveTaskToLog?id="+id, true);
+	  xhttpRequest.send();
+}
+
+function loadLoggedTasks() {
+	  var xhttpRequest = new XMLHttpRequest();
+	  
+	  xhttpRequest.onreadystatechange = function() {
+		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
+	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
+	    }  
+	  };	  
+	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/getLoggedTasks", true);
+	  xhttpRequest.send();	  	   	 
+}
   
   </script>
   

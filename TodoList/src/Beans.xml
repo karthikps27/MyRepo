@@ -13,10 +13,16 @@
       <property name="password" value="postgres"/>
    </bean>
 
+	<bean id="transactionManager" 
+      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      <property name="dataSource"  ref="dataSource" />    
+   </bean>
+
    <!-- Definition for studentJDBCTemplate bean -->
    <bean id="taskJdbcTemplate" 
       class="org.karthikps.TaskJDBCTemplate">
-      <property name="dataSource"  ref="dataSource" />    
+      <property name="dataSource"  ref="dataSource" />
+      <property name="transactionManager"  ref="transactionManager" />
    </bean>
       
 </beans>

@@ -82,4 +82,22 @@ public class TasksController {
 		modelAndView.addObject("tasks",taskList);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/moveTaskToLog", method = RequestMethod.GET, params = {"id"})
+	public ModelAndView moveTaskToLog(@RequestParam(value="id") String id) {
+		ModelAndView modelAndView = new ModelAndView("result");
+		Integer idInt = Integer.parseInt(id);
+		taskJdbcTemplate.moveTasksToLog(idInt);
+		List<Tasks> taskList = taskJdbcTemplate.listTasks();
+		modelAndView.addObject("tasks",taskList);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/getLoggedTasks", method = RequestMethod.GET)
+	public ModelAndView getLoggedTasks() {
+		ModelAndView modelAndView = new ModelAndView("result");
+		List<Tasks> allLoggedTasks = taskJdbcTemplate.getAllLoggedTasks();
+		modelAndView.addObject("tasks", allLoggedTasks);
+		return modelAndView;
+	}
 }
