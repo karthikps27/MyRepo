@@ -18,7 +18,7 @@
 	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
 	    }  
 	  };	  
-	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/getTasks", true);
+	  xhttpRequest.open("GET", "/TodoList/getTasks", true);
 	  xhttpRequest.send();
 	  
 	  var dt = new Date();
@@ -40,7 +40,7 @@
 	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
 	    }  
 	  };	  
-	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/deleteTasks?id="+id, true);
+	  xhttpRequest.open("GET", "/TodoList/deleteTasks?id="+id, true);
 	  xhttpRequest.send();
   }
   
@@ -54,7 +54,7 @@
 		      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
 		    }  
 		  };	  
-		  xhttpRequest.open("GET", "http://localhost:8080/TodoList/markAsInProgress?id="+id, true);
+		  xhttpRequest.open("GET", "/TodoList/markAsInProgress?id="+id, true);
 		  xhttpRequest.send();
 	  }
   
@@ -68,7 +68,7 @@ function completeTask() {
 	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
 	    }  
 	  };	  
-	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/markAsComplete?id="+id, true);
+	  xhttpRequest.open("GET", "/TodoList/markAsComplete?id="+id, true);
 	  xhttpRequest.send();
 }
 
@@ -81,7 +81,7 @@ function moveTaskToLog() {
 	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
 	    }  
 	  };	  
-	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/moveTaskToLog?id="+id, true);
+	  xhttpRequest.open("GET", "/TodoList/moveTaskToLog?id="+id, true);
 	  xhttpRequest.send();
 }
 
@@ -93,7 +93,7 @@ function loadLoggedTasks() {
 	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
 	    }  
 	  };	  
-	  xhttpRequest.open("GET", "http://localhost:8080/TodoList/getLoggedTasks", true);
+	  xhttpRequest.open("GET", "/TodoList/getLoggedTasks", true);
 	  xhttpRequest.send();	  	   	 
 }
   
