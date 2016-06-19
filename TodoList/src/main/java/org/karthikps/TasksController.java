@@ -1,5 +1,7 @@
 package org.karthikps;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,17 +25,15 @@ public class TasksController {
 	
 	@RequestMapping(value="/tasks", method = RequestMethod.GET)
 	public ModelAndView student() {
-		return new ModelAndView("tasks","command", new Tasks());
+		ModelAndView modelAndView = new ModelAndView("tasks","command", new Tasks());
+				modelAndView.addObject("commandFilter", new Filter());
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/addTasks", method = RequestMethod.POST)
 	public ModelAndView addStudent(@ModelAttribute("SpringWeb")Tasks task, ModelMap map) {
 		ModelAndView modelAndView = new ModelAndView("addTasks");			
-		//count++;
-		//tasks.put(count,task);
 		taskJdbcTemplate.insertTasks(task.getTaskSummary(), task.getPriority(), task.getDateOfCreation(),task.getTaskStatus());
-		
-		//System.out.println(task.getTaskSummary());
 		return new ModelAndView("tasks","command", new Tasks());
 	}
 	
@@ -98,6 +98,25 @@ public class TasksController {
 		ModelAndView modelAndView = new ModelAndView("result");
 		List<Tasks> allLoggedTasks = taskJdbcTemplate.getAllLoggedTasks();
 		modelAndView.addObject("tasks", allLoggedTasks);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/getQueriedTasks", method = RequestMethod.GET, params={"fromDate","toDate","priority"})
+	public ModelAndView getQueriedTasks(@RequestParam(value="fromDate") String fromDate, 
+			@RequestParam(value="toDate") String toDate, @RequestParam(value="priority") String priority) {
+		ModelAndView modelAndView = new ModelAndView("result");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date fromDateObj = new Date();
+		Date toDateObj = new Date();
+		try {
+		fromDateObj = format.parse(fromDate);
+		toDateObj = format.parse(toDate);
+		}
+		catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
+		List<Tasks> filteredTasks = taskJdbcTemplate.getQueriedTasks(fromDateObj, toDateObj, Integer.parseInt(priority));
+		modelAndView.addObject("tasks", filteredTasks);
 		return modelAndView;
 	}
 }

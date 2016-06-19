@@ -1,5 +1,6 @@
 package org.karthikps;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -41,10 +42,10 @@ public class TaskJDBCTemplate implements TaskDAO{
 		List<Tasks> allTasks = jdbcTemplate.query(sql,new TaskMapper());
 		return allTasks;
 	}
-
+	
 	@Override
-	public void insertTasks(String taskSummary, Integer priority, String dateOfCreation, Integer taskStatus) {
-		String sql = "insert into tasklist(tasksummary,taskpriority,taskcreation,taskStatus,logged) values (?,?,?,?,?)";
+	public void insertTasks(String taskSummary, Integer priority, java.util.Date dateOfCreation, Integer taskStatus) {
+		String sql = "insert into tasklist(tasksummary,taskpriority,taskCreateDate,taskStatus,logged) values (?,?,?,?,?)";
 		jdbcTemplate.update(sql,taskSummary,priority,dateOfCreation,TaskStatus.CREATED,false);
 		return;
 	}
@@ -82,4 +83,12 @@ public class TaskJDBCTemplate implements TaskDAO{
 		List<Tasks> taskList = jdbcTemplate.query(sql,new TaskMapper());
 		return taskList;
 	}
+
+	@Override
+	public List<Tasks> getQueriedTasks(java.util.Date fromDate, java.util.Date toDate, Integer priority) {
+		String sql = "select * from tasklist where logged = '1' and taskpriority = ? and taskcreatedate between ? and ?";
+		List<Tasks> tasks = jdbcTemplate.query(sql, new Object[]{priority,fromDate,toDate}, new TaskMapper());
+		return tasks;
+	}
+
 }

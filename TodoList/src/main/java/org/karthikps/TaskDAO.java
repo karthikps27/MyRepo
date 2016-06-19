@@ -1,5 +1,6 @@
 package org.karthikps;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public interface TaskDAO {
 	/*
 	 * This method is to add tasks to DB.
 	 */
-	public void insertTasks(String taskSummary, Integer priority, String dateOfCreation, Integer taskStatus);
+	public void insertTasks(String taskSummary, Integer priority, Date dateOfCreation, Integer taskStatus);
 	
 	/*
 	 * This method is to fetch all the tasks.
@@ -48,4 +49,9 @@ public interface TaskDAO {
 	 * Access the logged tasks
 	 */
 	public List<Tasks> getAllLoggedTasks();
+	
+	/*
+	 * Access Querried tasks
+	 */
+	public List<Tasks> getQueriedTasks(Date fromDate, Date toDate, Integer priority);
 }

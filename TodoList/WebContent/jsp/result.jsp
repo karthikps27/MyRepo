@@ -16,6 +16,7 @@
 <h2>My Tasks Info</h2>
 <button type="button" class="btn btn-default" value="View Current Tasks" onclick="loadAllTasks()">View Current Tasks</button>
 <button type="button" class="btn btn-default" value="View Logged Tasks" onclick="loadLoggedTasks()">View Logged Tasks</button>
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Custom Search</button>
    <table class="table table-hover">
    	<thead>
    		<td>Selection</td>
@@ -86,5 +87,41 @@
     <button type="button" class="btn btn-default" value="Mark as Complete" onclick="completeTask()">Mark as Complete</button>
     <button type="button" class="btn btn-default" value="Move the task to log" onclick="moveTaskToLog()" >Move the task to log</button>
    </div>
+   
+   <div class="modal fade" id="myModal" role="dialog" >
+	<div class="modal-dialog" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Narrow Your Search</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group">
+    					<label for="email">From Date:</label>
+					    <input type="text" class="form-control" id="fromDate" placeholder="dd/MM/yyyy"/>
+					</div>
+					<div class="form-group">
+						<label for="toDate">To Date:</label>
+					    <input type="text" class="form-control" id="toDate" placeholder="dd/MM/yyyy"/>
+					</div>
+					<div class="form-group">
+					  <label for="email">Task Priority:</label>
+					    <select class="form-control" id="priority" >      
+					    	<option value="1">Very Critical</option>
+					    	<option value="2">Critical</option>
+					    	<option value="3" selected="selected">Valuable</option>
+					    	<option value="4">Desirable</option>      	
+					    </select>
+					</div>					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="getQueriedTasks()">Query</button>
+        	</div>
+		</div>
+	</div>
+	</div>
+   
 </body>
 </html>

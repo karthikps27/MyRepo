@@ -2,11 +2,12 @@
 <html>
 <head>
 <title>My Tasks</title>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-datetimepicker.min.js"></script>
   
   <script type="text/javascript">
   
@@ -22,11 +23,31 @@
 	  xhttpRequest.send();
 	  
 	  var dt = new Date();
-	  document.getElementById("creationDate").value = dt;
+	  var dd = dt.getDate();
+	  var mm = dt.getMonth();
+	  mm++;
+	  var yyyy = dt.getFullYear();
+	  if(dd<10) {
+		  dd='0'+dd;
+	  }
+	  if(mm<10) {
+		  mm='0'+mm;
+	  }
+	  document.getElementById("creationDate").value = mm+'/'+dd+'/'+yyyy;
 	  
 	  setInterval(function(){ 
 		  var dt = new Date();
-		  document.getElementById("creationDate").value = dt;
+		  var dd = dt.getDate();
+		  var mm = dt.getMonth();
+		  var yyyy = dt.getFullYear();
+		  mm++;
+		  if(dd<10) {
+			  dd='0'+dd;
+		  }
+		  if(mm<10) {
+			  mm='0'+mm;
+		  }
+		  document.getElementById("creationDate").value = mm+'/'+dd+'/'+yyyy;
 		  }, 60000);	 	  
   }
   
@@ -96,6 +117,21 @@ function loadLoggedTasks() {
 	  xhttpRequest.open("GET", "/TodoList/getLoggedTasks", true);
 	  xhttpRequest.send();	  	   	 
 }
+
+function getQueriedTasks() {
+	var fromDate = document.getElementById("fromDate").value;
+	var toDate = document.getElementById("toDate").value;
+	var priority = document.getElementById("priority").value;
+	var xhttpRequest = new XMLHttpRequest();
+	  
+	  xhttpRequest.onreadystatechange = function() {
+		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
+	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
+	    }  
+	  };	  
+	  xhttpRequest.open("GET", "/TodoList/getQueriedTasks?fromDate="+fromDate+"&toDate="+toDate+"&priority="+priority, true);
+	  xhttpRequest.send();
+}
   
   </script>
   
@@ -103,16 +139,16 @@ function loadLoggedTasks() {
 <body onload="loadAllTasks()">
 
 <div class="container">
-  <h2>Tasks</h2>
+  <h2>Create Tasks</h2>
 <form:form class="form-horizontal" role="form" action="/TodoList/addTasks">
 <div class="form-group">
-    <label class="control-label col-sm-2" for="email">Task Summary:</label>
+    <label class="control-label col-sm-2" for="taskSummary">Task Summary:</label>
     <div class="col-sm-10">
       <form:input path="taskSummary" type="text" class="form-control" id="taskSummary" placeholder="Enter Task Summary Here"/>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="email">Task Priority:</label>
+    <label class="control-label col-sm-2" for="priority">Task Priority:</label>
     <div class="col-sm-10">
       <form:select path="priority" type="text" class="form-control" id="priority" >      
       	<option value="1">Very Critical</option>
@@ -123,9 +159,9 @@ function loadLoggedTasks() {
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="email">Task Creation Date:</label>
+    <label class="control-label col-sm-2" for="creationDate">Task Creation Date:</label>
     <div class="col-sm-10">
-      <form:input path="dateOfCreation" type="text" class="form-control" id="creationDate" placeholder="Enter Date"/>
+      <form:input path="dateOfCreation" class="form-control" id="creationDate" placeholder="Enter Date" type="text"/>
     </div>
   </div>
   <div class="form-group">        

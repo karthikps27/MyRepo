@@ -1,11 +1,13 @@
 package org.karthikps;
 
+import java.util.Date;
+
 public class Tasks {
 
 	public Integer taskId;	
 	public String taskSummary;
 	private Integer priority;
-	public String dateOfCreation;
+	public Date dateOfCreation;
 	public Integer taskStatus;
 	public boolean logged;
 	
@@ -39,10 +41,10 @@ public class Tasks {
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
-	public String getDateOfCreation() {
+	public Date getDateOfCreation() {
 		return dateOfCreation;
 	}
-	public void setDateOfCreation(String dateOfCreation) {
+	public void setDateOfCreation(Date dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
 	
