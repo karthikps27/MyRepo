@@ -107,10 +107,10 @@
 					</div>
 					<div class="form-group">
 					  <label for="email">Task Priority:</label>
-					    <select class="form-control" id="priority" >      
+					    <select class="form-control" id="queryPriority" >      
 					    	<option value="1">Very Critical</option>
 					    	<option value="2">Critical</option>
-					    	<option value="3" selected="selected">Valuable</option>
+					    	<option value="3">Valuable</option>
 					    	<option value="4">Desirable</option>      	
 					    </select>
 					</div>					

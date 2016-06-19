@@ -121,7 +121,7 @@ function loadLoggedTasks() {
 function getQueriedTasks() {
 	var fromDate = document.getElementById("fromDate").value;
 	var toDate = document.getElementById("toDate").value;
-	var priority = document.getElementById("priority").value;
+	var priority = document.getElementById("queryPriority").value;
 	var xhttpRequest = new XMLHttpRequest();
 	  
 	  xhttpRequest.onreadystatechange = function() {
