@@ -17,6 +17,7 @@ public class TaskMapper implements RowMapper<Tasks> {
 		task.setDateOfCreation(rs.getDate("taskCreateDate"));
 		task.setTaskStatus(rs.getInt("taskStatus"));
 		task.setLogged(rs.getBoolean("logged"));
+		task.setComments(rs.getString("comments"));
 		return task;
 	}
 

@@ -10,7 +10,14 @@ public class Tasks {
 	public Date dateOfCreation;
 	public Integer taskStatus;
 	public boolean logged;
+	public String comments;
 	
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 	public boolean isLogged() {
 		return logged;
 	}

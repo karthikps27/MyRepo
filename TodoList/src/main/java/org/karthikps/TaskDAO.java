@@ -38,7 +38,7 @@ public interface TaskDAO {
 	/*
 	 * This method is to modify the status of the task.
 	 */
-	public void modifyStatus(Integer taskId, Integer status);
+	public void modifyStatus(Integer taskId, Integer status,String comments);
 	
 	/*
 	 * This method is used to move the completed tasks to the log
@@ -54,4 +54,9 @@ public interface TaskDAO {
 	 * Access Querried tasks
 	 */
 	public List<Tasks> getQueriedTasks(Date fromDate, Date toDate, Integer priority);
+	
+	/*
+	 * Access a particular task based on the taskId
+	 */
+	public Tasks getTaskDetails(Integer taskId);
 }

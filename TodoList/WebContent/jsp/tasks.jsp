@@ -82,6 +82,7 @@
 function completeTask() {
 	  
 	  var id=document.querySelector('input[name="radioButtonName"]:checked').value;
+	  var comments=document.getElementById("comments").value;
 	  var xhttpRequest = new XMLHttpRequest();
 	  
 	  xhttpRequest.onreadystatechange = function() {
@@ -89,7 +90,7 @@ function completeTask() {
 	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
 	    }  
 	  };	  
-	  xhttpRequest.open("GET", "/TodoList/markAsComplete?id="+id, true);
+	  xhttpRequest.open("GET", "/TodoList/markAsComplete?id="+id+"&comments="+comments, true);
 	  xhttpRequest.send();
 }
 

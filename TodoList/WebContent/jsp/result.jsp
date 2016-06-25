@@ -43,7 +43,7 @@
    	</c:choose>
    	<tr class="${cssclass}" >
    		<td><input type="radio" value="${o.getTaskId()}" id="radioButton" name="radioButtonName"/></td>
-   		<td>${o.getTaskSummary()}</td>
+   		<td><a href="/TodoList/getTaskDetails?id=${o.getTaskId()}" data-toggle="modal" data-target="#taskDetail">${o.getTaskSummary()}</a></td>
    		<c:choose>
    			<c:when test="${o.getPriority()==1}">
    			<td style="background-color: #FB6E6E">Very Critical</td>
@@ -77,14 +77,14 @@
    			<c:when test="${o.isLogged()==true}">
    			<td>Logged</td>
    			</c:when>   			
-   		</c:choose>   		
+   		</c:choose>
    	</tr>
     </c:forEach>
     </table>
     
     <button type="button" class="btn btn-default" value="Delete Tasks" onclick="deleteTask()">Delete Tasks</button>
     <button type="button" class="btn btn-default" value="Mark as In-Progress" onclick="inProgressTask()">Mark as In-Progress</button>
-    <button type="button" class="btn btn-default" value="Mark as Complete" onclick="completeTask()">Mark as Complete</button>
+    <button type="button" class="btn btn-default" value="Mark as Complete" data-toggle="modal" data-target="#completeTask">Mark as Complete</button>
     <button type="button" class="btn btn-default" value="Move the task to log" onclick="moveTaskToLog()" >Move the task to log</button>
    </div>
    
@@ -122,6 +122,36 @@
 		</div>
 	</div>
 	</div>
+	
+	<div class="modal fade" id="completeTask" role="dialog" >
+	<div class="modal-dialog" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Mark the task as Complete</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group">
+    					<label for="comments">Comments:</label>
+					    <textarea class="form-control" id="comments" rows="5" placeholder="Enter the comments here"></textarea>
+					</div>					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="completeTask()">Mark as Complete</button>
+        	</div>
+		</div>
+	</div>
+	</div>
+	
+	<div id="taskDetail" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            	     
+            </div>
+        </div>
+    </div>
    
 </body>
 </html>

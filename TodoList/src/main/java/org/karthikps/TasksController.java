@@ -63,11 +63,11 @@ public class TasksController {
 		return modelAndView;		
 	}
 	
-	@RequestMapping(value="/markAsComplete", method = RequestMethod.GET, params = {"id"})
-	public ModelAndView markAsComplete(@RequestParam(value="id") String id) {
+	@RequestMapping(value="/markAsComplete", method = RequestMethod.GET, params = {"id","comments"})
+	public ModelAndView markAsComplete(@RequestParam(value="id") String id, @RequestParam(value="comments") String comments) {
 		ModelAndView modelAndView = new ModelAndView("result");
 		Integer idInt = Integer.parseInt(id);
-		taskJdbcTemplate.modifyStatus(idInt, TaskStatus.COMPLETED);
+		taskJdbcTemplate.modifyStatus(idInt, TaskStatus.COMPLETED,comments);
 		List<Tasks> taskList = taskJdbcTemplate.listTasks();
 		modelAndView.addObject("tasks",taskList);
 		return modelAndView;
@@ -77,7 +77,7 @@ public class TasksController {
 	public ModelAndView markAsInProgress(@RequestParam(value="id") String id) {
 		ModelAndView modelAndView = new ModelAndView("result");
 		Integer idInt = Integer.parseInt(id);
-		taskJdbcTemplate.modifyStatus(idInt, TaskStatus.INPROGRESS);
+		taskJdbcTemplate.modifyStatus(idInt, TaskStatus.INPROGRESS,"");
 		List<Tasks> taskList = taskJdbcTemplate.listTasks();
 		modelAndView.addObject("tasks",taskList);
 		return modelAndView;
@@ -117,6 +117,14 @@ public class TasksController {
 		}
 		List<Tasks> filteredTasks = taskJdbcTemplate.getQueriedTasks(fromDateObj, toDateObj, Integer.parseInt(priority));
 		modelAndView.addObject("tasks", filteredTasks);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/getTaskDetails", method = RequestMethod.GET, params={"id"})
+	public ModelAndView getTaskDetails(@RequestParam(value="id") String id) {
+		ModelAndView modelAndView = new ModelAndView("taskDetails");
+		Tasks taskDetails = taskJdbcTemplate.getTaskDetails(Integer.parseInt(id));
+		modelAndView.addObject("individualTask", taskDetails);
 		return modelAndView;
 	}
 }

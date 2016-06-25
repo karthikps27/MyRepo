@@ -51,10 +51,12 @@ public class TaskJDBCTemplate implements TaskDAO{
 	}
 
 	@Override
-	public void modifyStatus(Integer taskId, Integer status) {
+	public void modifyStatus(Integer taskId, Integer status,String comments) {
 		//System.out.println(status);
 		String sql = "update tasklist set taskStatus = ? where id = ?";
+		String commentsSql = "update tasklist set comments = ? where id = ?";
 		jdbcTemplate.update(sql,status,taskId);
+		jdbcTemplate.update(commentsSql,comments,taskId);
 		return;
 	}
 
@@ -91,4 +93,11 @@ public class TaskJDBCTemplate implements TaskDAO{
 		return tasks;
 	}
 
+	@Override
+	public Tasks getTaskDetails(Integer taskId) {
+		String sql = "select * from tasklist where id = ?";
+		List<Tasks> tasks = jdbcTemplate.query(sql,new Object[] {taskId}, new TaskMapper());
+		return tasks.get(0);
+	}
+	
 }
