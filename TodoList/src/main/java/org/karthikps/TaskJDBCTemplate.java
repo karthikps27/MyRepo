@@ -45,18 +45,32 @@ public class TaskJDBCTemplate implements TaskDAO{
 	
 	@Override
 	public void insertTasks(String taskSummary, Integer priority, java.util.Date dateOfCreation, Integer taskStatus) {
-		String sql = "insert into tasklist(tasksummary,taskpriority,taskCreateDate,taskStatus,logged) values (?,?,?,?,?)";
-		jdbcTemplate.update(sql,taskSummary,priority,dateOfCreation,TaskStatus.CREATED,false);
-		return;
+		TransactionDefinition tdef = new DefaultTransactionDefinition();
+		TransactionStatus tStatus = ptm.getTransaction(tdef);
+		try {
+			String sql = "insert into tasklist(tasksummary,taskpriority,taskCreateDate,taskStatus,logged) values (?,?,?,?,?)";
+			jdbcTemplate.update(sql,taskSummary,priority,dateOfCreation,TaskStatus.CREATED,false);
+			return;
+		}
+		catch(Exception e) {
+			ptm.rollback(tStatus);		
+		}
 	}
 
 	@Override
 	public void modifyStatus(Integer taskId, Integer status,String comments) {
-		//System.out.println(status);
-		String sql = "update tasklist set taskStatus = ? where id = ?";
-		String commentsSql = "update tasklist set comments = ? where id = ?";
-		jdbcTemplate.update(sql,status,taskId);
-		jdbcTemplate.update(commentsSql,comments,taskId);
+		TransactionDefinition tdef = new DefaultTransactionDefinition();
+		TransactionStatus tStatus = ptm.getTransaction(tdef);
+		try {
+			String sql = "update tasklist set taskStatus = ? where id = ?";
+			String commentsSql = "update tasklist set comments = ? where id = ?";
+			jdbcTemplate.update(sql,status,taskId);
+			jdbcTemplate.update(commentsSql,comments,taskId);
+			ptm.commit(tStatus);
+		}
+		catch(Exception e) {
+			ptm.rollback(tStatus);		
+		}
 		return;
 	}
 
