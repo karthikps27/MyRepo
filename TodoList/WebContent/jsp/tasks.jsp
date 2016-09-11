@@ -5,137 +5,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/bootstrap-datetimepicker.min.js"></script>
-  
-  <script type="text/javascript">
-  
-  function loadAllTasks() {
-	  var xhttpRequest = new XMLHttpRequest();
-	  
-	  xhttpRequest.onreadystatechange = function() {
-		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
-	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
-	    }  
-	  };	  
-	  xhttpRequest.open("GET", "/TodoList/getTasks", true);
-	  xhttpRequest.send();
-	  
-	  var dt = new Date();
-	  var dd = dt.getDate();
-	  var mm = dt.getMonth();
-	  mm++;
-	  var yyyy = dt.getFullYear();
-	  if(dd<10) {
-		  dd='0'+dd;
-	  }
-	  if(mm<10) {
-		  mm='0'+mm;
-	  }
-	  document.getElementById("creationDate").value = mm+'/'+dd+'/'+yyyy;
-	  
-	  setInterval(function(){ 
-		  var dt = new Date();
-		  var dd = dt.getDate();
-		  var mm = dt.getMonth();
-		  var yyyy = dt.getFullYear();
-		  mm++;
-		  if(dd<10) {
-			  dd='0'+dd;
-		  }
-		  if(mm<10) {
-			  mm='0'+mm;
-		  }
-		  document.getElementById("creationDate").value = mm+'/'+dd+'/'+yyyy;
-		  }, 60000);	 	  
-  }
-  
-  function deleteTask() {
-	  
-	  var id=document.querySelector('input[name="radioButtonName"]:checked').value;
-	  var xhttpRequest = new XMLHttpRequest();
-	  
-	  xhttpRequest.onreadystatechange = function() {
-		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
-	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
-	    }  
-	  };	  
-	  xhttpRequest.open("GET", "/TodoList/deleteTasks?id="+id, true);
-	  xhttpRequest.send();
-  }
-  
-	function inProgressTask() {
-		  
-		  var id=document.querySelector('input[name="radioButtonName"]:checked').value;
-		  var xhttpRequest = new XMLHttpRequest();
-		  
-		  xhttpRequest.onreadystatechange = function() {
-			if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
-		      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
-		    }  
-		  };	  
-		  xhttpRequest.open("GET", "/TodoList/markAsInProgress?id="+id, true);
-		  xhttpRequest.send();
-	  }
-  
-function completeTask() {
-	  
-	  var id=document.querySelector('input[name="radioButtonName"]:checked').value;
-	  var comments=document.getElementById("comments").value;
-	  var xhttpRequest = new XMLHttpRequest();
-	  
-	  xhttpRequest.onreadystatechange = function() {
-		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
-	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
-	    }  
-	  };	  
-	  xhttpRequest.open("GET", "/TodoList/markAsComplete?id="+id+"&comments="+comments, true);
-	  xhttpRequest.send();
-}
-
-function moveTaskToLog() {
-	var id=document.querySelector('input[name="radioButtonName"]:checked').value;
-	  var xhttpRequest = new XMLHttpRequest();
-	  
-	  xhttpRequest.onreadystatechange = function() {
-		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
-	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
-	    }  
-	  };	  
-	  xhttpRequest.open("GET", "/TodoList/moveTaskToLog?id="+id, true);
-	  xhttpRequest.send();
-}
-
-function loadLoggedTasks() {
-	  var xhttpRequest = new XMLHttpRequest();
-	  
-	  xhttpRequest.onreadystatechange = function() {
-		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
-	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
-	    }  
-	  };	  
-	  xhttpRequest.open("GET", "/TodoList/getLoggedTasks", true);
-	  xhttpRequest.send();	  	   	 
-}
-
-function getQueriedTasks() {
-	var fromDate = document.getElementById("fromDate").value;
-	var toDate = document.getElementById("toDate").value;
-	var priority = document.getElementById("queryPriority").value;
-	var xhttpRequest = new XMLHttpRequest();
-	  
-	  xhttpRequest.onreadystatechange = function() {
-		if(xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
-	      document.getElementById("taskDetails").innerHTML = xhttpRequest.responseText;
-	    }  
-	  };	  
-	  xhttpRequest.open("GET", "/TodoList/getQueriedTasks?fromDate="+fromDate+"&toDate="+toDate+"&priority="+priority, true);
-	  xhttpRequest.send();
-}
-  
-  </script>
-  
+  <script src="js/custom.js"></script>
 </head>
 <body onload="loadAllTasks()">
 
@@ -173,7 +48,87 @@ function getQueriedTasks() {
 </form:form>
 </div>
 
-<div id="taskDetails"></div>
+<div class="container">
+<h2>My Tasks Info</h2>
+<button type="button" class="btn btn-default" value="View Current Tasks" onclick="loadAllTasks()">View Current Tasks</button>
+<button type="button" class="btn btn-default" value="View Logged Tasks" onclick="loadLoggedTasks()">View Logged Tasks</button>
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Custom Search</button>
+   
+<br /><br />
+	
+	<div id="tableDiv">	  
+    </div>
+    
+    <button type="button" class="btn btn-default" value="Delete Tasks" onclick="deleteTask()">Delete Tasks</button>
+    <button type="button" class="btn btn-default" value="Mark as In-Progress" onclick="inProgressTask()">Mark as In-Progress</button>
+    <button type="button" class="btn btn-default" value="Mark as Complete" data-toggle="modal" data-target="#completeTask">Mark as Complete</button>
+    <button type="button" class="btn btn-default" value="Move the task to log" onclick="moveTaskToLog()" >Move the task to log</button>
+   </div>
+   
+   <div class="modal fade" id="myModal" role="dialog" >
+	<div class="modal-dialog" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Narrow Your Search</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group">
+    					<label for="email">From Date:</label>
+					    <input type="text" class="form-control" id="fromDate" placeholder="dd/MM/yyyy"/>
+					</div>
+					<div class="form-group">
+						<label for="toDate">To Date:</label>
+					    <input type="text" class="form-control" id="toDate" placeholder="dd/MM/yyyy"/>
+					</div>
+					<div class="form-group">
+					  <label for="email">Task Priority:</label>
+					    <select class="form-control" id="queryPriority" >      
+					    	<option value="1">Very Critical</option>
+					    	<option value="2">Critical</option>
+					    	<option value="3">Valuable</option>
+					    	<option value="4">Desirable</option>      	
+					    </select>
+					</div>					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="getQueriedTasks()">Query</button>
+        	</div>
+		</div>
+	</div>
+	</div>
+	
+	<div class="modal fade" id="completeTask" role="dialog" >
+	<div class="modal-dialog" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Mark the task as Complete</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="form-group">
+    					<label for="comments">Comments:</label>
+					    <textarea class="form-control" id="comments" rows="5" placeholder="Enter the comments here"></textarea>
+					</div>					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="completeTask()">Mark as Complete</button>
+        	</div>
+		</div>
+	</div>
+	</div>
+	
+	<div id="taskDetail" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            	     
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

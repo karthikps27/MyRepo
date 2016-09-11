@@ -6,10 +6,17 @@
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  
 </head>
-
+<script type="text/javascript">
+  	$(document).ready(function() {
+  		$('#tasksTable').DataTable();
+  	})
+  </script>
 
 <body>
 <div class="container">
@@ -17,15 +24,18 @@
 <button type="button" class="btn btn-default" value="View Current Tasks" onclick="loadAllTasks()">View Current Tasks</button>
 <button type="button" class="btn btn-default" value="View Logged Tasks" onclick="loadLoggedTasks()">View Logged Tasks</button>
 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Custom Search</button>
-   <table class="table table-hover">
+   <table class="display" id="tasksTable">
    	<thead>
-   		<td>Selection</td>
-   		<td>Task Summary</td>
-   		<td>Priority</td>
-   		<td>Creation date</td>
-   		<td>Task Status</td>
-   		<td>Logged Status</td>
+   		<tr>
+	   		<th>Selection</th>
+	   		<th>Task Summary</th>
+	   		<th>Priority</th>
+	   		<th>Creation date</th>
+	   		<th>Task Status</th>
+	   		<th>Logged Status</th>
+   		</tr>
    	</thead>
+   	<tbody>
    <c:forEach var="o" items="${tasks}">
    <c:choose>
    			<c:when test="${o.getTaskStatus()==1}">
@@ -80,6 +90,7 @@
    		</c:choose>
    	</tr>
     </c:forEach>
+    </tbody>
     </table>
     
     <button type="button" class="btn btn-default" value="Delete Tasks" onclick="deleteTask()">Delete Tasks</button>

@@ -38,7 +38,7 @@ public class TaskJDBCTemplate implements TaskDAO{
 
 	@Override
 	public List<Tasks> listTasks() {
-		String sql = "select * from tasklist where logged = '0' order by taskpriority";
+		String sql = "select * from tasklist where logged = '0' order by taskpriority DESC";
 		List<Tasks> allTasks = jdbcTemplate.query(sql,new TaskMapper());
 		return allTasks;
 	}

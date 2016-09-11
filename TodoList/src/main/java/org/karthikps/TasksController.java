@@ -64,13 +64,13 @@ public class TasksController {
 	}
 	
 	@RequestMapping(value="/markAsComplete", method = RequestMethod.GET, params = {"id","comments"})
-	public ModelAndView markAsComplete(@RequestParam(value="id") String id, @RequestParam(value="comments") String comments) {
-		ModelAndView modelAndView = new ModelAndView("result");
+	public void markAsComplete(@RequestParam(value="id") String id, @RequestParam(value="comments") String comments) {
+		//ModelAndView modelAndView = new ModelAndView("tasks");
 		Integer idInt = Integer.parseInt(id);
 		taskJdbcTemplate.modifyStatus(idInt, TaskStatus.COMPLETED,comments);
-		List<Tasks> taskList = taskJdbcTemplate.listTasks();
-		modelAndView.addObject("tasks",taskList);
-		return modelAndView;
+		//List<Tasks> taskList = taskJdbcTemplate.listTasks();
+		//modelAndView.addObject("tasks",taskList);
+		//return modelAndView;
 	}
 	
 	@RequestMapping(value="/markAsInProgress", method = RequestMethod.GET, params = {"id"})
