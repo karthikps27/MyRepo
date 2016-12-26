@@ -144,6 +144,23 @@ function loadLoggedTasks() {
 	  })
 }
 
+function updateTask(taskId) {
+	var summary = document.getElementById("summaryInModal").value;
+	var priority = document.getElementById("priorityModal").value;
+	var comments = document.getElementById("commentInModal").value;
+	
+	$.ajax({
+		url: "/TodoList/updateTask",
+		type: "get",
+		data: "id="+taskId+"&summary="+summary+"&priority="+priority+"&comments="+comments,
+		success: function(result) {
+			createAndPopUsingAjax(result);
+		}
+	}
+	)
+	
+}
+
 function getQueriedTasks() {
 	var fromDate = document.getElementById("fromDate").value;
 	var toDate = document.getElementById("toDate").value;
@@ -160,7 +177,7 @@ function getQueriedTasks() {
 	$.ajax({
 		  url: "/TodoList/getQueriedTasksRest",
 		  type: "get",
-		  data: fromDate=+fromDate+"&toDate="+toDate+"&priority="+priority,
+		  data: "fromDate="+fromDate+"&toDate="+toDate+"&priority="+priority,
 		  success: function(result) {
 			  createAndPopUsingAjax(result);
 		  }	  

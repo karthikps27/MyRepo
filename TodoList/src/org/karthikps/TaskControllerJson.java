@@ -97,10 +97,21 @@ public class TaskControllerJson {
 	}
 	
 	@RequestMapping(value="/deleteTasksRest", method = RequestMethod.GET, params = {"id"})	
-	public List<Tasks> deleteStudent(@RequestParam(value="id") String id) {
+	public List<Tasks> deleteTasksRest(@RequestParam(value="id") String id) {
 		Integer idInt = Integer.parseInt(id);
 		taskJdbcTemplate.delete(idInt);
 		List<Tasks> taskList = taskJdbcTemplate.listTasks();
 		return taskList;		
+	}
+	
+	@RequestMapping(value="/updateTask", method = RequestMethod.GET, params={"id","priority","summary","comments"})
+	public List<Tasks> updateTaskRest(@RequestParam(value="id") String id,
+			@RequestParam(value="priority") String priority,
+			@RequestParam(value="summary") String summary,
+			@RequestParam(value="comments") String comments) {
+		Integer idInt = Integer.parseInt(id);
+		taskJdbcTemplate.modifyTaskDetails(Integer.parseInt(id), Integer.parseInt(priority), summary, comments);
+		List<Tasks> allTasks = taskJdbcTemplate.listTasks();
+		return allTasks;
 	}
 }

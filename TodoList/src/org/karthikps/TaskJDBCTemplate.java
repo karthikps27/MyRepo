@@ -120,5 +120,23 @@ public class TaskJDBCTemplate implements TaskDAO{
 		List<Tasks> tasks = jdbcTemplate.query(sql,new Object[] {taskId}, new TaskMapper());
 		return tasks.get(0);
 	}
-	
+
+	@Override
+	public void modifyTaskDetails(Integer taskId, Integer priority, String summary, String comments) {
+		TransactionDefinition tdef = new DefaultTransactionDefinition();
+		TransactionStatus tStatus = ptm.getTransaction(tdef);
+		try {
+			String updateSummary= "update tasklist set taskSummary = ? where id = ?";
+			String updatePriority = "update tasklist set taskPriority = ? where id = ?";
+			String updateComment = "update tasklist set comments = ? where id = ?";
+			jdbcTemplate.update(updateSummary,summary,taskId);
+			jdbcTemplate.update(updatePriority,priority,taskId);
+			jdbcTemplate.update(updateComment,comments,taskId);
+			ptm.commit(tStatus);
+		}
+		catch(Exception e) {
+			ptm.rollback(tStatus);		
+		}
+		return;
+	}
 }

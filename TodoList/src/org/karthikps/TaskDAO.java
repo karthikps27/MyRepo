@@ -59,4 +59,9 @@ public interface TaskDAO {
 	 * Access a particular task based on the taskId
 	 */
 	public Tasks getTaskDetails(Integer taskId);
+	
+	/*
+	 * Modify the task details
+	 */
+	public void modifyTaskDetails(Integer taskId, Integer priority, String summary, String comments);
 }
