@@ -20,6 +20,12 @@ public class TaskControllerJson {
 	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 	TaskJDBCTemplate taskJdbcTemplate = (TaskJDBCTemplate)context.getBean("taskJdbcTemplate");
 	
+	@RequestMapping(value="/addTasksRest", method = RequestMethod.POST)
+	public void addStudent(@RequestBody Tasks task) {
+		System.out.println(task.getTaskSummary());
+		taskJdbcTemplate.insertTasks(task.getTaskSummary(), task.getPriority(), task.getDateOfCreation(),task.getTaskStatus());
+		return;
+	}
 	
 	@RequestMapping(value="/getTaskJson")
 	public List<Tasks> getAllTasksAjax() {

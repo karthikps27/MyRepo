@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <title>My Tasks</title>
@@ -13,7 +14,20 @@
   <script src="js/custom.js"></script>
 </head>
 <body onload="loadAllTasks()">
-
+<div>
+<center>
+<img src="css/pacemaker.png" width="150" height="150">
+</center>
+<div class="col-xs-12 text-right">
+<c:url value="/logout" var="logoutUrl" />
+<form id="logout" action="${logoutUrl}" method="post" >
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form>
+<c:if test="${pageContext.request.userPrincipal.name != null}">
+	<button style="position:right 25px " type="button" class="btn btn-default" value="Logout" onclick="javascript:document.getElementById('logout').submit()">Logout</button>
+</c:if>
+</div>
+</div>
 <div class="container">
   <h2>Create Tasks</h2>
 <form:form class="form-horizontal" role="form" action="/TodoList/addTasks">
