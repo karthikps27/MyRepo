@@ -12,12 +12,18 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/bootstrap-datetimepicker.min.js"></script>
   <script src="js/custom.js"></script>
+  
+  <script>
+$(document).ready(function(){
+    $("#search").click(function(){
+        $("#myModal").modal();
+    });
+});
+</script>
+  
 </head>
 <body onload="loadAllTasks()">
 <div>
-<center>
-<img src="css/pacemaker.png" width="150" height="150">
-</center>
 <div class="col-xs-12 text-right">
 <c:url value="/logout" var="logoutUrl" />
 <form id="logout" action="${logoutUrl}" method="post" >
@@ -28,6 +34,23 @@
 </c:if>
 </div>
 </div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <img src="css/pacemaker_black.png" width="145" height="75">
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="javascript:loadAllTasks()">View Current Tasks</a></li>
+      <li><a href="javascript:loadLoggedTasks()">View Logged Tasks</a></li>
+      <li><a href="#" id="search">Custom Search</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="javascript:document.getElementById('logout').submit()"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container">
   <h2>Create Tasks</h2>
 <form:form class="form-horizontal" role="form" action="/TodoList/addTasks">
@@ -64,11 +87,7 @@
 
 <div class="container">
 <h2>My Tasks Info</h2>
-<button type="button" class="btn btn-default" value="View Current Tasks" onclick="loadAllTasks()">View Current Tasks</button>
-<button type="button" class="btn btn-default" value="View Logged Tasks" onclick="loadLoggedTasks()">View Logged Tasks</button>
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Custom Search</button>
    
-<br /><br />
 	
 	<div id="tableDiv">	  
     </div>

@@ -14,7 +14,7 @@
  	<mvc:resources mapping="/fonts/**" location="/fonts/"/>
  	<mvc:annotation-driven />
 	<context:component-scan base-package="org.karthikps" />
- 
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
