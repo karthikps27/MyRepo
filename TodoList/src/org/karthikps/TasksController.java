@@ -23,7 +23,9 @@ public class TasksController {
 	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 	TaskJDBCTemplate taskJdbcTemplate = (TaskJDBCTemplate)context.getBean("taskJdbcTemplate");
 	
-	@RequestMapping(value="/tasks", method = RequestMethod.GET)
+	
+	
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView student() {
 		ModelAndView modelAndView = new ModelAndView("tasks","command", new Tasks());
 				modelAndView.addObject("commandFilter", new Filter());

@@ -31,12 +31,14 @@
   </div>
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   <div class="form-group">        
-      <div class="col-sm-offset-5 col-sm-2">
-        <button type="submit" class="btn btn-default">Login</button>
+      <div class="col-sm-offset-5 col-sm-3">
+        <button type="submit" class="btn btn-info" style="width: 200px">Login</button>
       </div>
     </div>
     
 </form:form>
-	
+<center><p>
+&copy 2017 karthikps
+</p></center>
 </body>
 </html>

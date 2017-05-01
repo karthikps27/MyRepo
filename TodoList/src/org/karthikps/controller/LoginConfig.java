@@ -48,7 +48,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
 			AuthenticationManagerBuilder auth) throws Exception {
 		auth
 			.inMemoryAuthentication()
-				.withUser("user").password("password").roles("USER");
+				.withUser("admin").password("everteam@0665").roles("USER");
 	}
 	// @formatter:on
 }
