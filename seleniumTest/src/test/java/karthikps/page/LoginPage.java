@@ -14,7 +14,7 @@ public class LoginPage extends BasePage{
 		super(driver);
 	}
 
-	public UserHomePage login(String username, String password) {
+	public UserAccountPage login(String username, String password) {
 		
 		/*waitForElementToAppear("id=username").click();
 		waitForElementToAppear("id=username").sendKeys("admin");
@@ -28,7 +28,7 @@ public class LoginPage extends BasePage{
 		waitForElementToBeClickable(passwordField).sendKeys(password);
 		waitForElementToBeClickable(signInButton).click();
 		
-		UserHomePage userHomePage = new UserHomePage(driver);
+		UserAccountPage userHomePage = new UserAccountPage(driver);
 		return userHomePage;
 	}
 }

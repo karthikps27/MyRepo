@@ -5,46 +5,46 @@ import java.util.Date;
 public class Bookings {
 
 	private String hotelName;
-	private int bookingId;
-	private int bookingCode;
-	private Date dueDate;
-	private int cost;
-	private String currency;
+	private String bookingId;
+	private String bookingCode;
+	private String dueDate;
+	private String cost;
+	private String location;
 	public String getHotelName() {
 		return hotelName;
 	}
 	public void setHotelName(String hotelName) {
 		this.hotelName = hotelName;
 	}
-	public int getBookingId() {
+	public String getBookingId() {
 		return bookingId;
 	}
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
+	public void setBookingId(String string) {
+		this.bookingId = string;
 	}
-	public int getBookingCode() {
+	public String getBookingCode() {
 		return bookingCode;
 	}
-	public void setBookingCode(int bookingCode) {
-		this.bookingCode = bookingCode;
+	public void setBookingCode(String string) {
+		this.bookingCode = string;
 	}
-	public Date getDueDate() {
+	public String getDueDate() {
 		return dueDate;
 	}
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
+	public void setDueDate(String string) {
+		this.dueDate = string;
 	}
-	public int getCost() {
+	public String getCost() {
 		return cost;
 	}
-	public void setCost(int cost) {
-		this.cost = cost;
+	public void setCost(String cost2) {
+		this.cost = cost2;
 	}
-	public String getCurrency() {
-		return currency;
+	public String getLocation() {
+		return location;
 	}
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	

@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import karthikps.constants.ResourceProperties;
 import karthikps.utils.DriverFactory;
 
-public abstract class BaseTestClass {
+public class BaseTestClass {
 
 	public WebDriver driver;
 	

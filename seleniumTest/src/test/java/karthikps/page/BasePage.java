@@ -5,20 +5,26 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import karthikps.strategies.search.HotelSearchStrategy;
+import karthikps.strategies.search.ISearchStrategy;
+
 public abstract class BasePage {
 
 	public String myAccountLink = "xpath=(//a[contains(text(),'My Account')])[2]";
 	
 	public WebDriver driver;
+	public JavascriptExecutor je;
 	
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
+		je = (JavascriptExecutor)driver;
 	}
 	
 	public By getLocator(String locator) {
@@ -97,9 +103,10 @@ public abstract class BasePage {
 		Long currentTime = System.currentTimeMillis();
 		Long afterTime = System.currentTimeMillis();
 		Dimension initial = waitForElementToAppear(locator).getSize();
+		int count = 0;
 		while(afterTime-currentTime < 10000) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -109,8 +116,19 @@ public abstract class BasePage {
 				afterTime = System.currentTimeMillis();
 			}
 			else
-				break;
-				
+				count++;
+			if(count > 3)
+				break;				
 		}
+	}
+	
+	public void enterValuesToInputField(String locator, String text) {
+		waitForElementToAppear(locator).click();
+		waitForElementToAppear(locator).clear();
+		waitForElementToAppear(locator).sendKeys(text);
+	}
+	
+	public void scrollForLazyLoading() {
+		je.executeScript("window.scrollby(0,250)", "");
 	}
 }
