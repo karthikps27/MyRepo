@@ -1,43 +1,63 @@
 package org.karthikps;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+import javax.persistence.*;
 
-	private String FirstName;
-	private String LastName;
-	private Date DOB;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@Entity
+@Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
+
+public class User implements Serializable{
+
+	private String firstname;
+	private String lastname;
+	private Date dob;
 	private long phonenumber;
-	public User(String firstName, String lastName, Date dOB, long phonenumber) {
-		super();
-		FirstName = firstName;
-		LastName = lastName;
-		DOB = dOB;
-		this.phonenumber = phonenumber;
+	private String email;
+	
+	@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String userid;
+	
+	public String getFirstname() {
+		return firstname;
 	}
-	public String getFirstName() {
-		return FirstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public void setFirstName(String firstName) {
-		FirstName = firstName;
+	public String getLastname() {
+		return lastname;
 	}
-	public String getLastName() {
-		return LastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
-	public void setLastName(String lastName) {
-		LastName = lastName;
+	public Date getDob() {
+		return dob;
 	}
-	public Date getDOB() {
-		return DOB;
-	}
-	public void setDOB(Date dOB) {
-		DOB = dOB;
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 	public long getPhonenumber() {
 		return phonenumber;
 	}
 	public void setPhonenumber(long phonenumber) {
 		this.phonenumber = phonenumber;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	
 }

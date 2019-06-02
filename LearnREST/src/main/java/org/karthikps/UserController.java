@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,12 +21,15 @@ public class UserController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping(method = RequestMethod.POST)
-    public User post(@RequestBody User user) {
-    	User newUser = new User(user.getFirstName(),user.getLastName(),user.getDOB(),user.getPhonenumber());
-    	Users.add(newUser);
-    	System.out.println("New Object added. Total size:" + Users.size());
-    	return newUser;
+    public String post(@RequestBody User user) {
+    	//User newUser = new User(user.getFirstname(),user.getFirstname(),user.getDob(),user.getPhonenumber(), user.getEmail());
+    	//Users.add(newUser);
+    	//System.out.println("New Object added. Total size:" + Users.size());
+    	userRepository.save(user);
+    	return "Executed";
     }
 }
