@@ -2,9 +2,11 @@ package org.karthikps;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -20,7 +22,12 @@ public class User implements Serializable{
 	private String email;
 	
 	@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(
+		name = "UUID",
+		strategy = "org.hibernate.id.UUIDGenerator"
+	)
+	@Column(name = "userid", updatable = false, nullable = false)
 	private String userid;
 	
 	public String getFirstname() {
@@ -56,8 +63,8 @@ public class User implements Serializable{
 	public String getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserid() {
+		this.userid = UUID.randomUUID().toString();
 	}
 	
 }
